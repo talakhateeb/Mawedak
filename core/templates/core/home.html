@@ -1,0 +1,289 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- slider section -->
+<section class="slider_section position-relative">
+  <div class="container">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row">
+            <div class="col">
+              <div class="detail-box">
+                <h2>مرحبًا بكم في</h2>
+                <h1>موعدك</h1>
+                <p>حجز مواعيدك في أي وقت ومن أي مكان بسهولة وسرعة</p>
+                <div class="">
+                  <a href="" class="btn btn-primary">اتصل بنا</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col">
+              <div class="detail-box">
+                <h2>مرحبًا بكم في</h2>
+                <h1>نظام الطابور الرقمي</h1>
+                <p>هدفنا هو توفير تجربة مريحة ومتكاملة تساعدك على تنظيم وقتك والاستفادة من يومك بأفضل طريقة ممكنة.
+                  ابدأ الآن واكتشف كيف يمكن لـ موعدك أن يجعل حياتك أسهل</p>
+                <div class="">
+                  <a href="" class="btn btn-primary">اتصل بنا</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col">
+              <div class="detail-box">
+                <h2>مرحبًا بكم في</h2>
+                <h1>موعدك</h1>
+                <p>مع موعدك، يمكنك حجز المواعيد بسهولة، متابعة الطوابير في الوقت الفعلي، وتلقي الإشعارات بكل جديد لتوفير وقتك وضمان راحتك.</p>
+                <div class="">
+                  <a href="" class="btn btn-primary">اتصل بنا</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end slider section -->
+<br><br><br><br><br><br><br>
+<!-- do section -->
+<section class="do_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2>ماذا نفعل</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+    </div>
+    <div class="do_container">
+      <div class="box arrow-start arrow_bg">
+        <div class="img-box">
+          <img src="{% static 'core/images/d-1.png' %}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>التسويق</h6>
+        </div>
+      </div>
+      <div class="box arrow-middle arrow_bg">
+        <div class="img-box">
+          <img src="{% static 'core/images/d-2.png' %}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>التطوير</h6>
+        </div>
+      </div>
+      <div class="box arrow-middle arrow_bg">
+        <div class="img-box">
+          <img src="{% static 'core/images/d-3.png' %}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>HTML5</h6>
+        </div>
+      </div>
+      <div class="box arrow-end arrow_bg">
+        <div class="img-box">
+          <img src="{% static 'core/images/d-4.png' %}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>CSS</h6>
+        </div>
+      </div>
+      <div class="box">
+        <div class="img-box">
+          <img src="{% static 'core/images/d-5.png' %}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>ووردبريس</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end do section -->
+<!-- who section -->
+<section class="who_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="img-box">
+          <img src="{% static 'core/images/who-img.jpg' %}" alt="">
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="detail-box">
+          <div class="heading_container">
+            <h2>من نحن؟</h2>
+          </div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
+          <div>
+            <a href="" class="btn btn-secondary">اقرأ المزيد</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end who section -->
+
+<!-- work section -->
+<section class="work_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2>الأعمال الإبداعية</h2>
+      <p>consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+    </div>
+    <div class="work_container layout_padding2">
+      <div class="box b-1">
+        <img src="{% static 'core/images/w-1.png' %}" alt="">
+      </div>
+      <div class="box b-2">
+        <img src="{% static 'core/images/w-2.png' %}" alt="">
+      </div>
+      <div class="box b-3">
+        <img src="{% static 'core/images/w-3.png' %}" alt="">
+      </div>
+      <div class="box b-4">
+        <img src="{% static 'core/images/w-4.png' %}" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end work section -->
+
+<!-- client section -->
+<section class="client_section">
+  <div class="container">
+    <div class="heading_container">
+      <h2>ماذا يقول العملاء</h2>
+    </div>
+    <div class="carousel-wrap">
+      <div class="owl-carousel">
+        <div class="item">
+          <div class="box">
+            <div class="img-box">
+              <img src="{% static 'core/images/c-1.png' %}" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>Tempor incididunt <br><span>Dipiscing elit</span></h5>
+              <img src="{% static 'core/images/quote.png' %}" alt="">
+              <p>Dipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="box">
+            <div class="img-box">
+              <img src="{% static 'core/images/c-2.png' %}" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>Tempor incididunt <br><span>Dipiscing elit</span></h5>
+              <img src="{% static 'core/images/quote.png' %}" alt="">
+              <p>Dipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="box">
+            <div class="img-box">
+              <img src="{% static 'core/images/c-3.png' %}" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>Tempor incididunt <br><span>Dipiscing elit</span></h5>
+              <img src="{% static 'core/images/quote.png' %}" alt="">
+              <p>Dipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end client section -->
+
+<!-- target section -->
+<section class="target_section layout_padding2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <div class="detail-box">
+          <h2>1000+</h2>
+          <h5>سنوات من العمل</h5>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="detail-box">
+          <h2>20000+</h2>
+          <h5>مشاريع تم تسليمها</h5>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="detail-box">
+          <h2>10000+</h2>
+          <h5>عملاء راضون</h5>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="detail-box">
+          <h2>1500+</h2>
+          <h5>أكواب قهوة</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end target section -->
+
+<!-- contact section -->
+<section class="contact_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2>طلب مكالمة</h2>
+    </div>
+    <div class="">
+      <div class="">
+        <div class="row">
+          <div class="col-md-9 mx-auto">
+            <div class="contact-form">
+              <form action="">
+                <div>
+                  <input type="text" placeholder="الاسم الكامل">
+                </div>
+                <div>
+                  <input type="text" placeholder="رقم الهاتف">
+                </div>
+                <div>
+                  <input type="email" placeholder="البريد الإلكتروني">
+                </div>
+                <div>
+                  <input type="text" placeholder="رسالة" class="input_message">
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn_on-hover">إرسال</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="map_img-box">
+      <img src="{% static 'core/images/map-img.png' %}" alt="">
+    </div>
+  </div>
+</section>
+<!-- end contact section -->
+
+{% endblock %}
