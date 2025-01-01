@@ -1,0 +1,84 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}الطابور الحالي ومواعيدي{% endblock %}
+
+{% block content %}
+<section class="content_section" style="color: white;">
+    <div class="container">
+        <!-- Current Queue Status Section -->
+        <h2 class="text-center mb-4">الطابور الحالي</h2>
+        <div id="queue-status">
+            <p>جار التحميل...</p> <!-- Placeholder while loading -->
+        </div>
+
+        <!-- My Appointments Section -->
+        <h2 class="text-center mb-4">مواعيدي</h2>
+        <div id="my-appointments">
+            <p>جار التحميل...</p> <!-- Placeholder while loading -->
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const queueStatusContainer = document.getElementById('queue-status');
+    const myAppointmentsContainer = document.getElementById('my-appointments');
+
+    // Fetch current queue status
+    fetch('/api/queue-status/')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch queue status');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.queueStatus) {
+                queueStatusContainer.innerHTML = `
+                    <p>الطابور الحالي: ${data.queueStatus}</p>
+                `;
+            } else {
+                queueStatusContainer.innerHTML = `
+                    <p>لا توجد معلومات عن الطابور حالياً.</p>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching queue status:', error);
+            queueStatusContainer.innerHTML = `
+                <p>حدث خطأ أثناء تحميل حالة الطابور.</p>
+            `;
+        });
+
+    // Fetch appointments for the logged-in user
+    fetch('/api/appointments/')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch appointments');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.length === 0) {
+                myAppointmentsContainer.innerHTML = '<p>لا توجد مواعيد حالياً.</p>';
+            } else {
+                data.forEach(appointment => {
+                    const appointmentDiv = document.createElement('div');
+                    appointmentDiv.classList.add('appointment-item');
+                    appointmentDiv.innerHTML = `
+                        <h5>الخدمة: ${appointment.service}</h5>
+                        <p>التاريخ: ${appointment.date}</p>
+                        <p>الوقت: ${appointment.time}</p>
+                    `;
+                    myAppointmentsContainer.appendChild(appointmentDiv);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching appointments:', error);
+            myAppointmentsContainer.innerHTML = '<p>حدث خطأ أثناء تحميل المواعيد.</p>';
+        });
+});
+</script>
+{% endblock %}

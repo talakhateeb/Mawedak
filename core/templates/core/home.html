@@ -1,0 +1,210 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+<section class="slider_section position-relative">
+  <div class="container">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <br><br><br><br><br>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row">
+            <div class="col">
+              <div class="detail-box">
+                <div>
+                  <h2>مرحبًا بكم في</h2>
+                  <h1>موعدك</h1>
+                  <p>النظام الذي يسهل عليك حجز المواعيد وتتبع الطوابير بكل سهولة</p>
+                  <div class="">
+                    <a href="">اتصل بنا</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col">
+              <div class="detail-box">
+                <div>
+                  <h2>مرحبًا بكم في</h2>
+                  <h1>موعدك</h1>
+                  <p>حجز مواعيدك في أي وقت ومن أي مكان بسهولة وسرعة</p>
+                  <div class="">
+                    <a href="">اتصل بنا</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col">
+              <div class="detail-box">
+                <div>
+                  <h2>مرحبًا بكم في</h2>
+                  <h1>موعدك</h1>
+                  <p>هدفنا هو توفير تجربة مريحة ومتكاملة تساعدك على تنظيم وقتك والاستفادة من يومك بأفضل طريقة ممكنة</p>
+                  <div class="">
+                    <a href="">اتصل بنا</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br><br><br>
+<section class="do_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2>لماذا تختار موعدك؟</h2>
+      <p>حجز المواعيد ببساطة: اختر الخدمة والتوقيت المناسب لك بخطوات سهلة وسريعة.
+        تنبيهات فورية: إشعارات لحظية لإبلاغك بكل ما يخص دورك.
+        متابعة الطوابير: عرض مباشر لموقعك في الطابور مع وقت الانتظار المتوقع.
+        تجربة استخدام سلسة: تصميم حديث يناسب جميع الأعمار والمستويات التقنية.</p>
+    </div>
+    <div class="do_container">
+      <div class="box arrow-start arrow_bg">
+        <div class="img-box">
+          <img src="{% static 'core/images/d-3.png' %}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>وزارة الداخلية</h6>
+        </div>
+      </div>
+      <div class="box arrow-middle arrow_bg">
+        <div class="img-box">
+          <img src="{% static 'core/images/d-3.png' %}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>وزارة الصحة</h6>
+        </div>
+      </div>
+      <div class="box arrow-middle arrow_bg">
+        <div class="img-box">
+          <img src="{% static 'core/images/d-3.png' %}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>وزارة الخارجية</h6>
+        </div>
+      </div>
+      <div class="box arrow-end arrow_bg">
+        <div class="img-box">
+          <img src="{% static 'core/images/d-3.png' %}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>وزارة التربية والتعليم</h6>
+        </div>
+      </div>
+      <div class="box">
+        <div class="img-box">
+          <img src="{% static 'core/images/d-3.png' %}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>وزارة الزراعة</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="info_contact">
+          <h5>حول المتجر</h5>
+          <div>
+            <div class="img-box">
+              <img src="{% static 'core/images/location-white.png' %}" width="18px" alt="">
+            </div>
+            <p>العنوان</p>
+          </div>
+          <div>
+            <div class="img-box">
+              <img src="{% static 'core/images/telephone-white.png' %}" width="12px" alt="">
+            </div>
+            <p>+01 1234567890</p>
+          </div>
+          <div>
+            <div class="img-box">
+              <img src="{% static 'core/images/envelope-white.png' %}" width="18px" alt="">
+            </div>
+            <p>demo@gmail.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="info_info">
+          <h5>معلومات</h5>
+          <p>ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="info_insta">
+          <h5>إنستغرام</h5>
+          <div class="insta_container">
+            <div>
+              <a href="">
+                <div class="insta-box b-1">
+                  <img src="{% static 'core/images/insta.png' %}" alt="">
+                </div>
+              </a>
+              <a href="">
+                <div class="insta-box b-2">
+                  <img src="{% static 'core/images/insta.png' %}" alt="">
+                </div>
+              </a>
+            </div>
+            <div>
+              <a href="">
+                <div class="insta-box b-3">
+                  <img src="{% static 'core/images/insta.png' %}" alt="">
+                </div>
+              </a>
+              <a href="">
+                <div class="insta-box b-4">
+                  <img src="{% static 'core/images/insta.png' %}" alt="">
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="info_form">
+          <h5>النشرة الإخبارية</h5>
+          <form action="">
+            <input type="email" placeholder="أدخل بريدك الإلكتروني">
+            <button>اشترك</button>
+          </form>
+          <div class="social_box">
+            <a href="">
+              <img src="{% static 'core/images/fb.png' %}" alt="">
+            </a>
+            <a href="">
+              <img src="{% static 'core/images/twitter.png' %}" alt="">
+            </a>
+            <a href="">
+              <img src="{% static 'core/images/linkedin.png' %}" alt="">
+            </a>
+            <a href="">
+              <img src="{% static 'core/images/youtube.png' %}" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
