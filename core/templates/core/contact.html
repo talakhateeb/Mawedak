@@ -1,0 +1,233 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="contact-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">اتصل بنا</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <form method="post" action="{% url 'contact' %}" class="contact-form">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="form-group">
+                        {{ form.name.label_tag }}
+                        {{ form.name }}
+                        {{ form.name.errors }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.message.label_tag }}
+                        {{ form.message }}
+                        {{ form.message.errors }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">إرسال</button>
+                </form>
+                
+                <!-- عرض الرسائل -->
+                {% if messages %}
+                    <div class="mt-3">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <!-- معلومات الاتصال والخرائط -->
+            <div class="col-md-6">
+                <div class="contact-info">
+                    <h4>معلومات الاتصال</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> فلسطين-رام الله</p>
+                    <p><i class="fas fa-phone"></i> 01234456789</p>
+                    <p><i class="far fa-envelope-open"></i> mail@info.com</p>
+                    <h4 class="mt-4">موقعنا</h4>
+                </div>
+                <!-- تضمين خريطة Google Maps -->
+                <div id="map" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- أنماط مخصصة محدثة -->
+<style>
+    /* القسم الرئيسي لصفحة الاتصال */
+    .contact-info {
+    text-align: right; /* Align text to the right */
+}
+
+.contact-info h4 {
+    text-align: right; 
+}
+
+.contact-info p {
+    text-align: right; 
+}
+    .contact-section {
+        background: #f8f9fa;
+        padding: 60px 0;
+    }
+
+    .contact-section h2 {
+        font-size: 2.5rem;
+        color: #0d6efd;
+        position: relative;
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        margin-bottom: 40px;
+    }
+    .contact-section h2::after {
+        content: '';
+        width: 80px;
+        height: 4px;
+        background-color: #ffc107;
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+
+    /* نماذج الاتصال */
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-form .form-group {
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 20px;
+        text-align: center; /* توسيط النص داخل الحاوية */
+    }
+
+    /* توسيط عناوين الحقول */
+    .contact-form .form-group label {
+        display: block;
+        text-align: center;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .contact-form .form-control {
+        border-radius: 30px;
+        padding: 12px 20px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto; /* توسيط الحقول */
+    }
+
+    .contact-form .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 8px rgba(13, 110, 253, 0.2);
+    }
+
+    .contact-form button.btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-size: 1rem;
+        transition: background-color 0.3s, transform 0.3s;
+        cursor: pointer;
+    }
+
+    .contact-form button.btn-primary:hover {
+        background-color: #0056b3;
+        transform: translateY(-3px);
+    }
+
+    /* معلومات الاتصال */
+    .contact-info h4 {
+        color: #0d6efd;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .contact-info p {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* توسيط المحتوى أفقياً */
+    }
+
+    .contact-info p i {
+        margin-right: 10px;
+        color: #0d6efd;
+        font-size: 1.2rem;
+    }
+
+    /* خريطة جوجل */
+    .map-container {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .map-container #map {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* استجابة للتلفونات المحمولة */
+    @media (max-width: 767px) {
+        .contact-section {
+            padding: 40px 20px;
+        }
+
+        .contact-section h2 {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+        }
+
+        .contact-form .form-group {
+            max-width: 100%;
+        }
+    }
+</style>
+
+
+<!-- تضمين خريطة Google Maps -->
+<script>
+function initMap() {
+    var ramallah = {lat: 31.8948, lng: 35.2045}; // إحداثيات رام الله، فلسطين
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 14,
+        center: ramallah
+    });
+    var marker = new google.maps.Marker({
+        position: ramallah,
+        map: map
+    });
+
+    // إحداثيات حدود رام الله (مثال تقريبي)
+    var ramallahBounds = [
+        {lat: 31.9000, lng: 35.1900},
+        {lat: 31.9000, lng: 35.2200},
+        {lat: 31.8800, lng: 35.2200},
+        {lat: 31.8800, lng: 35.1900}
+    ];
+
+  
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"></script>
+{% endblock %}

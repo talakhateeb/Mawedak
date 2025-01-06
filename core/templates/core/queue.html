@@ -1,0 +1,110 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}تتبع الصف - موعدك{% endblock %}
+
+{% block content %}
+<section class="queue-section text-white">
+  <div class="container">
+    <h2 class="text-center mb-4">تتبع الصف</h2>
+
+    <!-- Queue Status -->
+    <!-- <div id="queue-status" class="mb-5">
+      <h4>الطابور الحالي</h4>
+      <p id="current-queue" class="text-warning">جار التحميل...</p>
+    </div> -->
+
+    <!-- User Appointments -->
+
+    <div id="user-appointments-section">
+      <h4>مواعيدي</h4>
+      <div id="user-appointments" class="row">
+        <p class="text-info">جار التحميل...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const queueStatus = document.getElementById('current-queue');
+    const userAppointmentsDiv = document.getElementById('user-appointments');
+
+    function fetchQueueStatus() {
+      fetch('/api/current-queue/')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error fetching queue status.');
+          }
+          return response.json();
+        })
+        .then(data => {
+          queueStatus.textContent = data.message || 'تم قطع الاتصال بالطابور.';
+        })
+        .catch(error => {
+          queueStatus.textContent = 'حدث خطأ أثناء تحميل حالة الطابور.';
+          console.error(error);
+        });
+    }
+
+    function fetchUserAppointments() {
+      fetch('/api/user-appointments/')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error fetching user appointments.');
+          }
+          return response.json();
+        })
+        .then(data => {
+          userAppointmentsDiv.innerHTML = ''; // Clear existing content
+
+          if (data.length === 0) {
+            userAppointmentsDiv.innerHTML = '<p class="text-info">لا توجد مواعيد متاحة.</p>';
+          } else {
+            data.forEach(appointment => {
+              // Create a Bootstrap card for each appointment
+              const appointmentCard = document.createElement('div');
+              appointmentCard.className = 'col-md-4 mb-4'; // Responsive grid
+              
+appointmentCard.innerHTML = `
+  <div class="card bg-dark text-white shadow">
+    <div class="card-body">
+      <h5 class="card-title text-warning">رقم الطابور: ${appointment.queue_number}</h5>
+      <p class="card-text">
+        <strong>الخدمة:</strong> ${appointment.service__name} <br>
+        <strong>الدائرة:</strong> ${appointment.department__name} <br>
+        
+        <!-- Split Date and Time -->
+        <strong>التاريخ:</strong> ${formatDate(appointment.appointment_date)} <br>
+        <strong>الوقت:</strong> ${appointment.appointment_time} <br>
+        
+        <strong>الحالة:</strong> ${appointment.status === 'completed' ? 'مكتمل' : 'قيد الانتظار'}
+      </p>
+    </div>
+  </div>
+`;
+
+function formatDate(dateTime) {
+  const date = new Date(dateTime);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return date.toLocaleDateString('ar-EG', options); // Date in Arabic format
+}
+
+              userAppointmentsDiv.appendChild(appointmentCard);
+            });
+          }
+        })
+        .catch(error => {
+          userAppointmentsDiv.innerHTML = '<p class="text-danger">حدث خطأ أثناء تحميل المواعيد.</p>';
+          console.error(error);
+        });
+    }
+
+    fetchQueueStatus();
+    fetchUserAppointments();
+
+    setInterval(fetchQueueStatus, 10000);
+    setInterval(fetchUserAppointments, 30000);
+  });
+</script>
+{% endblock %}

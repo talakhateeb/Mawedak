@@ -1,0 +1,290 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}حجز موعد - موعدك{% endblock %}
+
+{% block content %}
+<section class="content_section">
+  <div class="container">
+    <h2 class="text-center mb-4">حجز موعد</h2>
+    <p class="text-center mb-5">يرجى ملء النموذج أدناه لحجز موعدك بسهولة وسرعة.</p>
+    <form action="{% url 'appointment' %}" method="post">
+      {% csrf_token %}
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="fullName" class="form-label">الاسم الكامل</label>
+    <input
+          type="text"
+          class="form-control"
+          id="fullName"
+          name="fullName"
+          value="{{ full_name }}" 
+          placeholder="ادخل الاسم الرباعي"
+          required
+        />
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label">البريد الإلكتروني</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            value="{{ email }}"  
+            placeholder="أدخل بريدك الإلكتروني"
+            required
+          />
+        </div>
+
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="phone" class="form-label">رقم الهاتف</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phone"
+            name="phone"
+            placeholder="أدخل رقم هاتفك"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="department" class="form-label">اختر الدائرة</label>
+          <select
+            class="form-select"
+            id="department"
+            name="department"
+            required
+          >
+            <option value="">جار التحميل...</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="service" class="form-label">اختر الخدمة</label>
+          <select
+            class="form-select"
+            id="service"
+            name="service"
+            required
+          >
+            <option value="">اختر خدمة</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="date" class="form-label">اختر التاريخ</label>
+          <input
+            type="date"
+            class="form-control"
+            id="date"
+            name="date"
+            required
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="time" class="form-label">اختر الوقت</label>
+          <select class="form-select" id="time" name="time" required>
+            <option value="">اختر الوقت</option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="notes" class="form-label">ملاحظات</label>
+        <textarea
+          class="form-control"
+          id="notes"
+          name="notes"
+          rows="4"
+          placeholder="أدخل أي ملاحظات إضافية"
+        ></textarea>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg">حجز موعد</button>
+      </div>
+    </form>
+  </div>
+
+</section>
+{% if messages %}
+  <div class="alert alert-success">
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    console.log('Page loaded, initializing.');
+
+    const departmentSelect = document.getElementById('department');
+    const serviceSelect = document.getElementById('service');
+    const dateInput = document.getElementById('date');
+    const timeSelect = document.getElementById('time');
+
+    // Fetch departments
+    fetch('/api/departments/')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch departments');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        departmentSelect.innerHTML = '<option value="">اختر دائرة</option>';
+        data.forEach((department) => {
+          const option = document.createElement('option');
+          option.value = department.id;
+          option.textContent = department.name;
+          departmentSelect.appendChild(option);
+        });
+      })
+      
+      .catch((error) => {
+        console.error('Error fetching departments:', error.message);
+        departmentSelect.innerHTML =
+          '<option value="">حدث خطأ في تحميل الدوائر</option>';
+      });
+
+    // Fetch services based on the selected department
+    departmentSelect.addEventListener('change', function () {
+      const departmentId = this.value;
+      serviceSelect.innerHTML = '<option value="">اختر خدمة</option>';
+
+      if (!departmentId) return; // No department selected, nothing to fetch
+
+      fetch(`/api/services/${departmentId}/`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch services');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.length === 0) {
+            serviceSelect.innerHTML =
+              '<option value="">لا توجد خدمات في هذه الدائرة</option>';
+          } else {
+            data.forEach((service) => {
+              const option = document.createElement('option');
+              option.value = service.id;
+              option.textContent = service.name;
+              serviceSelect.appendChild(option);
+            });
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching services:', error.message);
+          serviceSelect.innerHTML =
+            '<option value="">حدث خطأ في تحميل الخدمات</option>';
+        });
+    });
+
+    // Fetch available times based on the selected service and date
+    dateInput.addEventListener('change', function () {
+      const serviceId = serviceSelect.value;
+      const selectedDate = this.value;
+      timeSelect.innerHTML = '<option value="">جار التحميل...</option>'; // Reset time options
+
+      if (!serviceId || !selectedDate) return;
+
+      fetch(`/api/reserved-times/${serviceId}/${selectedDate}/`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch reserved times');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Available times:', data);
+
+          timeSelect.innerHTML = '<option value="">اختر الوقت</option>';
+
+          // Populate available times
+          if (data.available_times.length > 0) {
+            data.available_times.forEach((time) => {
+              const option = document.createElement('option');
+              option.value = time;
+              option.textContent = time;
+              timeSelect.appendChild(option);
+            });
+          } else {
+            const option = document.createElement('option');
+            option.textContent = 'لا توجد أوقات متاحة';
+            timeSelect.appendChild(option);
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching reserved times:', error.message);
+          timeSelect.innerHTML =
+            '<option value="">حدث خطأ في تحميل الأوقات</option>';
+        });
+    });
+  });
+</script>
+
+<style>
+ .content_section {
+  background-color: #f8f9fa;
+  padding: 40px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.form-control, .form-select {
+  border-radius: 30px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.2s;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);  /* Add box shadow */
+  width: 100%;  /* Ensure all form fields have the same width */
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-row {
+  display: flex;
+  flex-direction: row-reverse;  /* Move labels to the right */
+  align-items: center;
+}
+
+.form-row .form-label {
+  margin-left: 15px;  /* Space between label and input field */
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  border-radius: 5px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .form-control, .form-select {
+    width: 100%;
+  }
+}
+
+
+</style>
+{% endblock %}

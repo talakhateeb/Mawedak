@@ -1,0 +1,73 @@
+
+
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container" style="color: #FFFFFF; padding: 20px; max-width: 600px; margin: 0 auto;">
+
+  <h2 class="text-center mb-4">تسجيل حساب جديد</h2>
+  
+  <form method="POST" class="p-4 border rounded ">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="form-group mb-3">
+          <label for="id_username" class="form-label text-light">اسم المستخدم</label>
+          {{ form.username }}
+          {% if form.username.errors %}
+              <small class="text-danger">{{ form.username.errors }}</small>
+          {% endif %}
+      </div>
+
+      <div class="form-group mb-3">
+          <label for="id_first_name" class="form-label text-light">الاسم الأول</label>
+          {{ form.first_name }}
+          {% if form.first_name.errors %}
+              <small class="text-danger">{{ form.first_name.errors }}</small>
+          {% endif %}
+      </div>
+
+      <div class="form-group mb-3">
+          <label for="id_last_name" class="form-label text-light">الاسم الأخير</label>
+          {{ form.last_name }}
+          {% if form.last_name.errors %}
+              <small class="text-danger">{{ form.last_name.errors }}</small>
+          {% endif %}
+      </div>
+
+      <div class="form-group mb-3">
+          <label for="id_email" class="form-label text-light">البريد الإلكتروني</label>
+          {{ form.email }}
+          {% if form.email.errors %}
+              <small class="text-danger">{{ form.email.errors }}</small>
+          {% endif %}
+      </div>
+
+      <div class="form-group mb-3">
+          <label for="id_password1" class="form-label text-light">كلمة المرور</label>
+          {{ form.password1 }}
+          {% if form.password1.errors %}
+              <small class="text-danger">{{ form.password1.errors }}</small>
+          {% endif %}
+      </div>
+
+      <div class="form-group mb-3">
+          <label for="id_password2" class="form-label text-light">تأكيد كلمة المرور</label>
+          {{ form.password2 }}
+          {% if form.password2.errors %}
+              <small class="text-danger">{{ form.password2.errors }}</small>
+          {% endif %}
+      </div>
+
+      <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary btn-lg w-100">تسجيل</button>
+      </div>
+  </form>
+
+  <p class="mt-4 text-center">
+      هل لديك حساب بالفعل؟ 
+      <a href="/accounts/login/" class="text-primary fw-bold">تسجيل الدخول</a>
+  </p>
+
+</div>
+{% endblock %}

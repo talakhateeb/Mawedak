@@ -1,0 +1,56 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}تسجيل الدخول - موعدك{% endblock %}
+
+{% block content %}
+<section class="content_section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h2 class="text-center mb-4 text-light">تسجيل الدخول</h2>
+        <form action="{% url 'login' %}" method="post">
+          {% csrf_token %}
+
+          
+          <div class="mb-3">
+            <label for="username" class="form-label text-light">اسم المستخدم</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="username" 
+              name="username" 
+              placeholder="أدخل اسم المستخدم" 
+              required>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="password" class="form-label text-light">كلمة المرور</label>
+            <input 
+              type="password" 
+              class="form-control" 
+              id="password" 
+              name="password" 
+              placeholder="أدخل كلمة المرور" 
+              required>
+          </div>
+
+
+          {% if form.errors %}
+          <div class="alert alert-danger">
+            اسم المستخدم أو كلمة المرور غير صحيحة. حاول مرة أخرى.
+          </div>
+          {% endif %}
+          <div class="d-grid text-center mt-3">
+            <button type="submit" class="btn btn-primary btn-lg">تسجيل الدخول</button>
+          </div>
+        </form>
+        <p class="text-center mt-4 text-light">
+          لا تملك حسابًا؟ <a href="{% url 'register' %}">سجل الآن</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
